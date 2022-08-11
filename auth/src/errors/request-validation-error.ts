@@ -6,7 +6,7 @@ export class RequestValidationError extends CustomError {
   public statusCode: number;
   public isOperational: boolean;
   constructor(private errors: Array<ValidationError>) {
-    super();
+    super("Invalid request parameters");
 
     this.statusCode = 400;
     this.isOperational = true;

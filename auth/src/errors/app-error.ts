@@ -3,7 +3,7 @@ import { CustomError } from "./custom-error";
 export class AppError extends CustomError {
   public isOperational: boolean;
   constructor(private error: string, public statusCode: number) {
-    super();
+    super(error);
 
     this.isOperational = true;
     Object.setPrototypeOf(this, AppError.prototype);
