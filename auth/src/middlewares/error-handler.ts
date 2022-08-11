@@ -1,5 +1,5 @@
-import { AppError } from "./../resources/helpers";
 import { NextFunction, Request, Response } from "express";
+import { AppError } from "../errors/app-error";
 
 export const errorHandler = (
   err: AppError,
