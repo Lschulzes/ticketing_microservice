@@ -4,18 +4,18 @@ import { CustomError } from "../errors/custom-error";
 import { RequestValidationError } from "../errors/request-validation-error";
 
 export const errorHandler = (
-  err: CustomError,
+  err: Error,
   _req: Request,
   res: Response,
   _next: NextFunction
 ) => {
-  if (!(err instanceof CustomError)) {
-    res.status(500).send({
-      errors: "Something went wrong!",
+  if (err instanceof CustomError) {
+    return res.status(err.statusCode).send({
+      errors: err.serializeErrors(),
     });
   }
 
-  res.status(err.statusCode).send({
-    errors: err.serializeErrors(),
+  res.status(500).send({
+    errors: "Something went wrong!",
   });
 };

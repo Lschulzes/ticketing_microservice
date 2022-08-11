@@ -1,4 +1,5 @@
 import express, { NextFunction, Request, Response } from "express";
+import "express-async-errors";
 import { json } from "body-parser";
 import { currentUserRouter } from "./routes/current-user";
 import {
@@ -21,10 +22,8 @@ app.use(SIGNIN_ENDPOINT, signinRouter);
 app.use(SIGNOUT_ENDPOINT, signoutRouter);
 app.use(SIGNUP_ENDPOINT, signupRouter);
 
-app.all("*", (req, _res, next) => {
-  const err = new AppError(`Can't find ${req.originalUrl} on this server`, 404);
-
-  next(err);
+app.all("*", async (req) => {
+  throw new AppError(`Can't find ${req.originalUrl} on this server`, 404);
 });
 
 app.use(errorHandler);
