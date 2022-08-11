@@ -1,6 +1,6 @@
 import { Request, Response, Router } from "express";
 import { validationResult } from "express-validator";
-import { SignupInputDTO } from "../dtos/signup";
+import { SignupInputDTO } from "../dtos/signup.dto";
 import { RequestValidationError } from "../errors/request-validation-error";
 
 const router = Router();
