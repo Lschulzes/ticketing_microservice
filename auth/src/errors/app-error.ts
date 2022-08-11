@@ -1,11 +1,15 @@
-export class AppError extends Error {
-  public status: string;
-  public isOperational: boolean;
-  constructor(message: string, public statusCode: number) {
-    super(message);
-    this.status = `${statusCode}`.charAt(0) === "4" ? "fail" : "error";
-    this.isOperational = true;
+import { CustomError } from "./custom-error";
 
-    Error.captureStackTrace(this, this.constructor);
+export class AppError extends CustomError {
+  public isOperational: boolean;
+  constructor(private error: string, public statusCode: number) {
+    super();
+
+    this.isOperational = true;
+    Object.setPrototypeOf(this, AppError.prototype);
+  }
+
+  serializeErrors(): { message: string; field?: string | undefined }[] {
+    return [{ message: this.error }];
   }
 }
