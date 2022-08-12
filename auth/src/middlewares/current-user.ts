@@ -23,7 +23,7 @@ export const currentUser = (
 
   try {
     if (!sessionJWT) throw new Error();
-
+    console.log({ sessionJWT });
     const payload = jwt.verify(sessionJWT, process.env.JWT_KEY!) as UserPayload;
 
     req.currentUser = payload;
