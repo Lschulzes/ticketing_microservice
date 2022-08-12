@@ -12,14 +12,14 @@ router.post(`/`, ...signinValidation, async (req: Request, res: Response) => {
   const { email, password } = req.body;
 
   const existingUser = await User.findOne({ email });
-  if (!existingUser) throw new AppError("Invalid credentials", 403);
+  if (!existingUser) throw new AppError("Invalid credentials", 400);
 
   const passwordsMatch = await Password.compare(
     password,
     existingUser.password
   );
 
-  if (!passwordsMatch) throw new AppError("Invalid credentials", 403);
+  if (!passwordsMatch) throw new AppError("Invalid credentials", 400);
 
   const userJWT = jwt.sign(
     {
