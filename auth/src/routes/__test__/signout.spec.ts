@@ -1,10 +1,6 @@
 import request from "supertest";
 import app from "../../app";
-import {
-  SIGNIN_ENDPOINT,
-  SIGNOUT_ENDPOINT,
-  SIGNUP_ENDPOINT,
-} from "../../resources/helpers";
+import { SIGNOUT_ENDPOINT, SIGNUP_ENDPOINT } from "../../resources/helpers";
 
 const email = "admin@admin.com";
 const password = "123456";
