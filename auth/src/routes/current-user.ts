@@ -2,22 +2,12 @@ import { User } from "./../models/User";
 import jwt from "jsonwebtoken";
 import { Router } from "express";
 import { AppError } from "../errors/app-error";
+import { currentUser } from "../middlewares/current-user";
 
 const router = Router();
 
-router.get(`/`, async (req, res) => {
-  const sessionJWT = req.session?.jwt;
-  if (!sessionJWT) return res.send({ currentUser: null });
-
-  try {
-    const payload = jwt.verify(sessionJWT, process.env.JWT_KEY!) as {
-      id: string;
-    };
-
-    res.status(200).send({ currentUser: payload });
-  } catch (error) {
-    res.send({ currentUser: null });
-  }
+router.get(`/`, currentUser, async (req, res) => {
+  res.send({ currentUser: req.currentUser });
 });
 
 export { router as currentUserRouter };
