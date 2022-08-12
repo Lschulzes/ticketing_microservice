@@ -14,10 +14,18 @@ import { signupRouter } from "./routes/signup";
 import { errorHandler } from "./middlewares/error-handler";
 import { AppError } from "./errors/app-error";
 import mongoose from "mongoose";
+import cookieSession from "cookie-session";
 
 const app = express();
 
+app.set("trust proxy", true);
 app.use(json());
+app.use(
+  cookieSession({
+    signed: false,
+    secure: true,
+  })
+);
 
 app.use(CURRENT_USER_ENDPOINT, currentUserRouter);
 app.use(SIGNIN_ENDPOINT, signinRouter);
