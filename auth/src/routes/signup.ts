@@ -4,6 +4,7 @@ import { SignupInputDTO } from "../dtos/signup-dto";
 import { AppError } from "../errors/app-error";
 import { RequestValidationError } from "../errors/request-validation-error";
 import User from "../models/User";
+import jwt from "jsonwebtoken";
 
 const router = Router();
 
@@ -16,6 +17,16 @@ router.post(`/`, SignupInputDTO, async (req: Request, res: Response) => {
   if (existingUser) throw new AppError("Email already exists", 400);
 
   const user = await User.build({ email, password }).save();
+
+  const userJWT = jwt.sign(
+    {
+      id: user.id,
+      email: user.email,
+    },
+    process.env.JWT_KEY!
+  );
+
+  req.session = { jwt: userJWT };
 
   res.status(201).send(user);
 });
