@@ -9,19 +9,22 @@ const email = "admin@admin.com";
 const password = "123456";
 
 it("responds with details about the current user", async () => {
-  const signupResponse = await request(app)
-    .post(SIGNUP_ENDPOINT)
-    .send({
-      email,
-      password,
-    })
-    .expect(201);
+  const cookie = await global.signin();
 
   const response = await request(app)
     .get(CURRENT_USER_ENDPOINT)
-    .set("Cookie", signupResponse.get("Set-Cookie"))
+    .set("Cookie", cookie)
     .send({})
     .expect(200);
 
   expect(response.body.currentUser.email).toEqual(email);
+});
+
+it("responds with null if no current user", async () => {
+  const response = await request(app)
+    .get(CURRENT_USER_ENDPOINT)
+    .send({})
+    .expect(200);
+
+  expect(response.body.currentUser).toEqual(null);
 });
