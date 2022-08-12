@@ -1,17 +1,14 @@
 import { Request, Response, Router } from "express";
 import { validationResult } from "express-validator";
-import { SignupInputDTO } from "../dtos/signup-dto";
 import { AppError } from "../errors/app-error";
 import { RequestValidationError } from "../errors/request-validation-error";
 import User from "../models/User";
 import jwt from "jsonwebtoken";
+import { signupValidation } from "../dtos/signup-dto";
 
 const router = Router();
 
-router.post(`/`, SignupInputDTO, async (req: Request, res: Response) => {
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) throw new RequestValidationError(errors.array());
-
+router.post(`/`, ...signupValidation, async (req: Request, res: Response) => {
   const { email, password } = req.body;
   const existingUser = await User.findOne({ email });
   if (existingUser) throw new AppError("Email already exists", 400);
