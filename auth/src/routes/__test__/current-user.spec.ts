@@ -28,3 +28,4 @@ it("responds with null if no current user", async () => {
 
   expect(response.body.currentUser).toEqual(null);
 });
+("");
