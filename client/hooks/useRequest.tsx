@@ -1,4 +1,4 @@
-import axios, { AxiosStatic } from 'axios';
+import axios, { AxiosRequestConfig, AxiosStatic } from 'axios';
 import { useState } from 'react';
 
 type ErrosResponse = Array<{ message: string; field?: string }>;
@@ -11,11 +11,16 @@ type Props = {
 export function useRequest<T>({ url, method }: Props) {
   const [errors, setErrors] = useState<ErrosResponse | null>(null);
 
-  const executeRequest = async (body: any): Promise<T | { error: true }> => {
+  const executeRequest = async (body: AxiosRequestConfig['data']): Promise<T | { error: true }> => {
     try {
-      axios.call(method, '/api/users/signup');
-      const { data } = await (axios as any)[method](url, body);
+      const { data } = await axios({
+        method,
+        url,
+        data: body,
+      });
+
       setErrors(null);
+
       return data;
     } catch (error) {
       if (axios.isAxiosError(error)) {
