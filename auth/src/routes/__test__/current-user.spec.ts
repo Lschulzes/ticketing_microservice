@@ -1,12 +1,8 @@
 import request from "supertest";
 import app from "../../app";
-import {
-  CURRENT_USER_ENDPOINT,
-  SIGNUP_ENDPOINT,
-} from "../../resources/helpers";
+import { CURRENT_USER_ENDPOINT } from "../../resources/helpers";
 
 const email = "admin@admin.com";
-const password = "123456";
 
 it("responds with details about the current user", async () => {
   const cookie = await global.signin();
