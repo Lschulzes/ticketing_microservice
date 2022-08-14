@@ -18,3 +18,11 @@ build:
       #       dest: .
       #     - src: "src/**/*.ts"
       #       dest: .
+    - image: lschulzes/client
+      context: ./client
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: "**/*.tsx"
+            dest: .
