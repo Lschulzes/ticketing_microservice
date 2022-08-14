@@ -6,12 +6,13 @@ type ErrosResponse = Array<{ message: string; field?: string }>;
 type Props = {
   url: string;
   method: keyof AxiosStatic;
+  body: AxiosRequestConfig['data'];
 };
 
-export function useRequest<T>({ url, method }: Props) {
+export function useRequest() {
   const [errors, setErrors] = useState<ErrosResponse | null>(null);
 
-  const executeRequest = async (body: AxiosRequestConfig['data']): Promise<T | { error: true }> => {
+  async function executeRequest<T>({ url, method, body }: Props): Promise<{ data: T | null; error: boolean }> {
     try {
       const { data } = await axios({
         method,
@@ -21,16 +22,16 @@ export function useRequest<T>({ url, method }: Props) {
 
       setErrors(null);
 
-      return data;
+      return { data, error: false };
     } catch (error) {
       if (axios.isAxiosError(error)) {
         const errors = (error.response?.data as { errors: ErrosResponse }).errors;
         setErrors(errors);
       }
 
-      return { error: true };
+      return { data: null, error: true };
     }
-  };
+  }
 
   return { executeRequest, errors };
 }

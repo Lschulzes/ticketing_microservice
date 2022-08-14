@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
 import useRequest from '../../hooks/useRequest';
 
@@ -6,12 +7,24 @@ type FormInputs = {
   password: string;
 };
 
+type SignupResponse = {
+  id: string;
+  email: string;
+};
+
 const SignupPage = () => {
+  const { push } = useRouter();
   const { register, handleSubmit } = useForm<FormInputs>();
-  const { executeRequest, errors } = useRequest({ url: '/api/users/signup', method: 'post' });
+  const { executeRequest, errors } = useRequest();
 
   const onSubmit = async (formData: FormInputs) => {
-    const data = await executeRequest(formData);
+    const { error } = await executeRequest<SignupResponse>({
+      url: '/api/users/signup',
+      method: 'post',
+      body: formData,
+    });
+    if (error) return;
+    push('/');
   };
 
   return (
