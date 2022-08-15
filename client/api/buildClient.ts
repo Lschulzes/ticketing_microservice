@@ -1,7 +1,7 @@
 import axios, { AxiosRequestHeaders } from 'axios';
 import { IncomingMessage } from 'http';
 
-type Request = IncomingMessage & {
+export type Request = IncomingMessage & {
   cookies: Partial<{
     [key: string]: string;
   }>;
