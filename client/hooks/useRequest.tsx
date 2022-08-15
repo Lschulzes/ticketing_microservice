@@ -6,7 +6,7 @@ type ErrosResponse = Array<{ message: string; field?: string }>;
 type Props = {
   url: string;
   method: keyof AxiosStatic;
-  body: AxiosRequestConfig['data'];
+  body?: AxiosRequestConfig['data'];
 };
 
 export function useRequest() {
