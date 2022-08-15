@@ -1,5 +1,5 @@
+import { validateRequestMiddleware } from "@lschulzes/tickets-common";
 import { body } from "express-validator";
-import { validateRequestMiddleware } from "../middlewares/validate-request";
 
 export const signinInputDTO = [
   body("email").isEmail().withMessage("Must be an valid email."),

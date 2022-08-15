@@ -11,9 +11,8 @@ import {
 import { signinRouter } from "./routes/signin";
 import { signoutRouter } from "./routes/signout";
 import { signupRouter } from "./routes/signup";
-import { errorHandler } from "./middlewares/error-handler";
-import { AppError } from "./errors/app-error";
 import cookieSession from "cookie-session";
+import { AppError, errorHandler } from "@lschulzes/tickets-common";
 
 const app = express();
 

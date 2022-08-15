@@ -2,9 +2,9 @@ import cookieSession from "cookie-session";
 import jwt from "jsonwebtoken";
 import { Request, Response, Router } from "express";
 import { signinValidation } from "../dtos/signin-dto";
-import { AppError } from "../errors/app-error";
 import User from "../models/User";
 import { Password } from "../services/password";
+import { AppError } from "@lschulzes/tickets-common";
 
 const router = Router();
 

@@ -554,6 +554,17 @@
     "@jridgewell/resolve-uri" "^3.0.3"
     "@jridgewell/sourcemap-codec" "^1.4.10"
 
+"@lschulzes/tickets-common@^0.0.4":
+  version "0.0.4"
+  resolved "https://registry.yarnpkg.com/@lschulzes/tickets-common/-/tickets-common-0.0.4.tgz#bc035993a01d4bb2c9deb9d5eeec00163a9edbc3"
+  integrity sha512-f4gfR9Z1aRTwKx2suQvxLM5C4oyUiYBDptM1r0SVr60wg23H0fuoTjSdc7V3LG6f67czmJ4cT6YZsNyWbpz1QA==
+  dependencies:
+    "@types/cookie-session" "^2.0.44"
+    cookie-session "^2.0.0"
+    express "^4.18.1"
+    express-validator "^6.14.2"
+    jsonwebtoken "^8.5.1"
+
 "@sinclair/typebox@^0.24.1":
   version "0.24.28"
   resolved "https://registry.yarnpkg.com/@sinclair/typebox/-/typebox-0.24.28.tgz#15aa0b416f82c268b1573ab653e4413c965fe794"
