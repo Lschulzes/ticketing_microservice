@@ -1,18 +1,18 @@
 import 'bootstrap/dist/css/bootstrap.css';
 import type { AppContext, AppProps } from 'next/app';
 import App from 'next/app';
-import Head from 'next/head';
 import buildClient, { Request } from '../api/buildClient';
+import Header from '../components/Header';
 import '../styles/globals.css';
 
-type PageProps = {
+export type PageProps = {
   user: { id: string; email: string } | null;
 };
 
 function MyApp({ Component, pageProps, user }: AppProps & PageProps) {
   return (
     <>
-      <Head>s</Head>
+      <Header user={user} />
       <Component {...pageProps} user={user} />
     </>
   );
