@@ -12,14 +12,20 @@ build:
       context: ./auth
       docker:
         dockerfile: Dockerfile
-      # sync:
-      #   manual:
-      #     - src: "src/*.ts"
-      #       dest: .
-      #     - src: "src/**/*.ts"
-      #       dest: .
+      sync:
+        manual:
+          - src: "src/**/*.ts"
+            dest: .
     - image: lschulzes/client
       context: ./client
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: "**/*.tsx"
+            dest: .
+    - image: lschulzes/tickets
+      context: ./tickets
       docker:
         dockerfile: Dockerfile
       sync:

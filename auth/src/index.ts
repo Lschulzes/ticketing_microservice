@@ -4,7 +4,9 @@ import mongoose from "mongoose";
 const start = async () => {
   try {
     if (!process.env.JWT_KEY) throw new Error("JWT_KEY must be defined");
-    await mongoose.connect("mongodb://auth-mongo-srv:27017/auth");
+    if (!process.env.MONGO_URI) throw new Error("MONGO_URI must be defined");
+
+    await mongoose.connect(process.env.MONGO_URI);
     console.log("Connected to auth DB");
   } catch (error) {
     console.error("Mongo Connection", error);
