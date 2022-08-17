@@ -15,12 +15,13 @@ router.post(
   async (req: Request, res: Response) => {
     const { title, price } = req.body;
 
-    await Ticket.build({
+    const ticket = await Ticket.build({
       title,
       price,
       userId: req.currentUser?.id || "",
     }).save();
-    res.status(201).send({});
+
+    res.status(201).send(ticket);
   }
 );
 

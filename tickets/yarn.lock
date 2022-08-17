@@ -554,10 +554,10 @@
     "@jridgewell/resolve-uri" "^3.0.3"
     "@jridgewell/sourcemap-codec" "^1.4.10"
 
-"@lschulzes/tickets-common@^0.0.4":
-  version "0.0.4"
-  resolved "https://registry.yarnpkg.com/@lschulzes/tickets-common/-/tickets-common-0.0.4.tgz#bc035993a01d4bb2c9deb9d5eeec00163a9edbc3"
-  integrity sha512-f4gfR9Z1aRTwKx2suQvxLM5C4oyUiYBDptM1r0SVr60wg23H0fuoTjSdc7V3LG6f67czmJ4cT6YZsNyWbpz1QA==
+"@lschulzes/tickets-common@^0.0.5":
+  version "0.0.5"
+  resolved "https://registry.yarnpkg.com/@lschulzes/tickets-common/-/tickets-common-0.0.5.tgz#7a02d729a9ecd30825d0b42037c39f5b07fe4e58"
+  integrity sha512-GGwuceEa8lopgIDY5KaU2ngdJzjc8DM4Q/Nr/i1r9ggdRFbLogO/XEBNMx0YqKdHsDwpmO7sQWyENK+RQP06tw==
   dependencies:
     "@types/cookie-session" "^2.0.44"
     cookie-session "^2.0.0"
