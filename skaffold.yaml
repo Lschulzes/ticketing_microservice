@@ -14,7 +14,7 @@ build:
         dockerfile: Dockerfile
       sync:
         manual:
-          - src: "src/**/*.ts"
+          - src: "**/*.ts"
             dest: .
     - image: lschulzes/client
       context: ./client
@@ -30,5 +30,5 @@ build:
         dockerfile: Dockerfile
       sync:
         manual:
-          - src: "**/*.tsx"
+          - src: "**/*.ts"
             dest: .
