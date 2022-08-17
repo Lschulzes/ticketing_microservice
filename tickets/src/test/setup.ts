@@ -4,7 +4,7 @@ import mongoose from "mongoose";
 import request from "supertest";
 import app from "../app";
 declare global {
-  var signin: () => Array<string>;
+  var signin: (id?: string) => Array<string>;
 }
 
 let mongo: any;
@@ -30,10 +30,10 @@ afterAll(async () => {
   await mongoose.connection.close();
 });
 
-global.signin = () => {
+global.signin = (id = "1lk24j124l") => {
   // Build a JWT payload.  { id, email }
   const payload = {
-    id: "1lk24j124l",
+    id: id,
     email: "test@test.com",
   };
 

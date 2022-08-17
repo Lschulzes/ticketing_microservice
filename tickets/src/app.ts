@@ -6,6 +6,7 @@ import { AppError, currentUser, errorHandler } from "@lschulzes/tickets-common";
 import { CreateTicketRouter } from "./routes/new";
 import { API_ENDPOINT, SHOW_ENDPOINT } from "./resources";
 import { ShowTicketRouter } from "./routes/show";
+import { UpdateTicketRouter } from "./routes/update";
 
 const app = express();
 
@@ -21,6 +22,7 @@ app.use(currentUser);
 
 app.use(API_ENDPOINT, CreateTicketRouter);
 app.use(SHOW_ENDPOINT, ShowTicketRouter);
+app.use(API_ENDPOINT, UpdateTicketRouter);
 
 app.all("*", async (req) => {
   throw new AppError(`Can't find ${req.originalUrl} on this server`, 404);

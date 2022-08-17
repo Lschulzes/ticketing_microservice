@@ -30,22 +30,16 @@ it("Returns all tickets created when no id is passed", async () => {
 });
 
 it("Returns only the Ticket with the ID passed In", async () => {
-  await request(app)
-    .post("/api/tickets")
-    .set("Cookie", signin())
-    .send({ title, price })
-    .expect(201);
-
-  const { body: ticket } = await request(app)
-    .post("/api/tickets")
-    .set("Cookie", signin())
-    .send({ title, price })
-    .expect(201);
+  await createTicket();
+  await createTicket();
+  const { body: ticket } = await createTicket();
+  await createTicket();
 
   const response = await request(app)
     .get(`/api/tickets/${ticket.id}`)
     .expect(200);
 
+  expect(response.body.id).toEqual(ticket.id);
   expect(response.body.title).toEqual(title);
   expect(response.body.price).toEqual(price);
 });
@@ -55,3 +49,10 @@ it("Returns 404 if no ticket is found", async () => {
 
   await request(app).get(`/api/tickets/${id}`).expect(404);
 });
+
+const createTicket = async () =>
+  await request(app)
+    .post("/api/tickets")
+    .set("Cookie", signin())
+    .send({ title, price })
+    .expect(201);

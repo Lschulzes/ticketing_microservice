@@ -1,10 +1,5 @@
-import { newTicketValidation } from "../dtos/new-dto";
 import { Request, Response, Router } from "express";
-import {
-  AppError,
-  authGuard,
-  validateRequestMiddleware,
-} from "@lschulzes/tickets-common";
+import { AppError } from "@lschulzes/tickets-common";
 import Ticket from "../models/Ticket";
 import mongoose from "mongoose";
 
