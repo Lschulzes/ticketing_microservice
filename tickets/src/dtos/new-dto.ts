@@ -9,6 +9,10 @@ export const newTicketDTO = [
     .withMessage("Must be an descriptive Title.")
     .isLength({ min: 4, max: 40 })
     .withMessage("Title must be between 4 and 40 characters"),
+  body("price")
+    .notEmpty()
+    .isFloat({ gt: 0 })
+    .withMessage("Price needs to be greater than zero"),
 ];
 
-export const signinValidation = [newTicketDTO, validateRequestMiddleware];
+export const newTicketValidation = [newTicketDTO, validateRequestMiddleware];

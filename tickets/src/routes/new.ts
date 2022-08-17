@@ -1,12 +1,27 @@
+import { newTicketValidation } from "./../dtos/new-dto";
 import { Request, Response, Router } from "express";
-import { authGuard } from "@lschulzes/tickets-common";
-import { newTicketDTO } from "../dtos/new-dto";
+import {
+  authGuard,
+  validateRequestMiddleware,
+} from "@lschulzes/tickets-common";
+import Ticket from "../models/Ticket";
 
 const router = Router();
 
-router.post("/", authGuard, newTicketDTO, (req: Request, res: Response) => {
-  console.log(req.cookies);
-  res.status(200).send({});
-});
+router.post(
+  "/",
+  authGuard,
+  ...newTicketValidation,
+  async (req: Request, res: Response) => {
+    const { title, price } = req.body;
+
+    await Ticket.build({
+      title,
+      price,
+      userId: req.currentUser?.id || "",
+    }).save();
+    res.status(201).send({});
+  }
+);
 
 export { router as CreateTicketRouter };
