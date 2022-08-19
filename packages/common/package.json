@@ -11,6 +11,7 @@
   "scripts": {
     "clean": "del ./dist/*",
     "build": "yarn clean && tsc",
+    "dev": "yarn clean && tsc",
     "pub": "git add . && git commit -m \"Updates\" && npm version patch && npm run build && npm publish"
   },
   "keywords": [],

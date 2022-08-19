@@ -9,26 +9,32 @@ build:
     push: false
   artifacts:
     - image: lschulzes/auth
-      context: ./auth
+      context: .
       docker:
-        dockerfile: Dockerfile
+        dockerfile: services/auth/Dockerfile.dev
       sync:
         manual:
-          - src: "**/*.ts"
+          - src: "services/**/*.ts"
+            dest: .
+          - src: "services/**/*.tsx"
             dest: .
     - image: lschulzes/client
-      context: ./client
+      context: .
       docker:
-        dockerfile: Dockerfile
+        dockerfile: services/client/Dockerfile.dev
       sync:
         manual:
-          - src: "**/*.tsx"
+          - src: "services/**/*.ts"
+            dest: .
+          - src: "services/**/*.tsx"
             dest: .
     - image: lschulzes/tickets
-      context: ./tickets
+      context: .
       docker:
-        dockerfile: Dockerfile
+        dockerfile: services/tickets/Dockerfile.dev
       sync:
         manual:
-          - src: "**/*.ts"
+          - src: "services/**/*.ts"
+            dest: .
+          - src: "services/**/*.tsx"
             dest: .

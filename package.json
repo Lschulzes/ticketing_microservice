@@ -14,9 +14,9 @@
     "build": "turbo run build",
     "clean": "turbo run clean",
     "dev": "turbo run dev --parallel",
-    "dev:auth": "yarn dev --filter=./services/auth/*",
-    "dev:tickets": "yarn dev --filter=./services/tickets/*",
-    "dev:client": "yarn dev --filter=./services/client/*",
+    "dev:auth": "yarn dev --filter=auth",
+    "dev:tickets": "yarn dev --filter=tickets",
+    "dev:client": "yarn dev --filter=client",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "lint": "turbo run lint",
     "test": "turbo run test"
