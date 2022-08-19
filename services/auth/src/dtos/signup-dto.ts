@@ -1,4 +1,4 @@
-import { validateRequestMiddleware } from "@lschulzes/tickets-common";
+import { validateRequestMiddleware } from "@tickets/common";
 import { body } from "express-validator";
 
 export const signupInputDTO = [
