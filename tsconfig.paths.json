@@ -3,7 +3,7 @@
     "baseUrl": ".",
 
     "paths": {
-      "@tickets/common": ["packages/common"]
+      "@tickets/common": ["packages/common/dist"]
     }
   }
 }

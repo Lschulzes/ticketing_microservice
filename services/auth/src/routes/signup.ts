@@ -1,9 +1,8 @@
+import { AppError } from "common";
 import { Request, Response, Router } from "express";
-import { validationResult } from "express-validator";
-import User from "../models/User";
 import jwt from "jsonwebtoken";
 import { signupValidation } from "../dtos/signup-dto";
-import { AppError } from "@lschulzes/tickets-common";
+import User from "../models/User";
 
 const router = Router();
 

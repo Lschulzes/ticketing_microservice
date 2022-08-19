@@ -1,7 +1,7 @@
+import { AppError } from "common";
 import { Request, Response, Router } from "express";
-import { AppError } from "@lschulzes/tickets-common";
-import Ticket from "../models/Ticket";
 import mongoose from "mongoose";
+import Ticket from "../models/Ticket";
 
 const router = Router();
 

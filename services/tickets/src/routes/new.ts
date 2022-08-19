@@ -1,10 +1,7 @@
-import { newTicketValidation } from "./../dtos/new-dto";
+import { authGuard } from "common";
 import { Request, Response, Router } from "express";
-import {
-  authGuard,
-  validateRequestMiddleware,
-} from "@lschulzes/tickets-common";
 import Ticket from "../models/Ticket";
+import { newTicketValidation } from "./../dtos/new-dto";
 
 const router = Router();
 

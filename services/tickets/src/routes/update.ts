@@ -1,8 +1,8 @@
+import { AppError, authGuard } from "common";
 import { Request, Response, Router } from "express";
-import { AppError, authGuard } from "@lschulzes/tickets-common";
-import Ticket from "../models/Ticket";
-import mongoose, { isValidObjectId } from "mongoose";
+import { isValidObjectId } from "mongoose";
 import { newTicketValidation } from "../dtos/new-dto";
+import Ticket from "../models/Ticket";
 
 const router = Router();
 

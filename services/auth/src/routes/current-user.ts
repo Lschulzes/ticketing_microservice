@@ -1,4 +1,4 @@
-import { currentUser } from "@lschulzes/tickets-common";
+import { currentUser } from "common";
 import { Router } from "express";
 
 const router = Router();
