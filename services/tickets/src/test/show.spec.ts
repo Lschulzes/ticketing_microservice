@@ -1,8 +1,6 @@
 import mongoose from "mongoose";
-import jwt, { sign } from "jsonwebtoken";
 import request from "supertest";
 import app from "../app";
-import Ticket from "../models/Ticket";
 
 const title = "This is a valid title";
 const price = 20;

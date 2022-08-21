@@ -1,8 +1,7 @@
-import jwt, { sign } from "jsonwebtoken";
 import mongoose from "mongoose";
 import request from "supertest";
 import app from "../app";
-import Ticket from "../models/Ticket";
+import { natsWrapper } from "../nats-wrapper";
 
 const id = new mongoose.Types.ObjectId().toHexString();
 
@@ -95,4 +94,23 @@ it("returns a 401 if the user does not own the ticket", async () => {
     .set("Cookie", signin("another-id"))
     .send({ title, price: 10 })
     .expect(401);
+});
+
+it("published an event", async () => {
+  const title = "This is a valid title";
+  const { body: ticket } = await request(app)
+    .post("/api/tickets")
+    .set("Cookie", signin())
+    .send({ title, price: 20 })
+    .expect(201);
+
+  expect(ticket.price).toEqual(20);
+
+  await request(app)
+    .put(`/api/tickets/${ticket.id}`)
+    .set("Cookie", signin())
+    .send({ title, price: 10 })
+    .expect(200);
+
+  expect(natsWrapper.client.publish).toHaveBeenCalledTimes(2);
 });

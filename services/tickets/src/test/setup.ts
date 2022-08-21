@@ -1,11 +1,11 @@
 import jwt from "jsonwebtoken";
 import { MongoMemoryServer } from "mongodb-memory-server";
 import mongoose from "mongoose";
-import request from "supertest";
-import app from "../app";
 declare global {
   var signin: (id?: string) => Array<string>;
 }
+
+jest.mock("../nats-wrapper");
 
 let mongo: any;
 
@@ -19,6 +19,8 @@ beforeAll(async () => {
 });
 
 beforeEach(async () => {
+  jest.clearAllMocks();
+
   const collections = await mongoose.connection.db.collections();
   for (const collection of collections) await collection.deleteMany({});
 });

@@ -1,7 +1,7 @@
-import jwt, { sign } from "jsonwebtoken";
 import request from "supertest";
 import app from "../app";
 import Ticket from "../models/Ticket";
+import { natsWrapper } from "../nats-wrapper";
 
 it("has a route handler listening to /api/tickets for post requests", async () => {
   const response = await request(app).post("/api/tickets").send({});
@@ -64,4 +64,16 @@ it("creates a ticket with valid inputs", async () => {
   const currentRecords = await Ticket.count();
 
   expect(currentRecords).toEqual(amountOfRecords + 1);
+});
+
+it("published an event", async () => {
+  const title = "This is a valid title";
+
+  await request(app)
+    .post("/api/tickets")
+    .set("Cookie", signin())
+    .send({ title, price: 20 })
+    .expect(201);
+
+  expect(natsWrapper.client.publish).toHaveBeenCalledTimes(1);
 });
