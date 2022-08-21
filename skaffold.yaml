@@ -14,6 +14,8 @@ build:
         dockerfile: services/auth/Dockerfile.dev
       sync:
         manual:
+          - src: "packages/**/*.ts"
+            dest: .
           - src: "services/**/*.ts"
             dest: .
           - src: "services/**/*.tsx"
@@ -24,6 +26,8 @@ build:
         dockerfile: services/client/Dockerfile.dev
       sync:
         manual:
+          - src: "packages/**/*.ts"
+            dest: .
           - src: "services/**/*.ts"
             dest: .
           - src: "services/**/*.tsx"
@@ -34,6 +38,8 @@ build:
         dockerfile: services/tickets/Dockerfile.dev
       sync:
         manual:
+          - src: "packages/**/*.ts"
+            dest: .
           - src: "services/**/*.ts"
             dest: .
           - src: "services/**/*.tsx"

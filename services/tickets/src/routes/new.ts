@@ -1,6 +1,9 @@
 import { authGuard } from "common";
 import { Request, Response, Router } from "express";
+
+import { TicketCreatedPublisher } from "../events/publishers/ticket-created-publisher";
 import Ticket from "../models/Ticket";
+import { natsWrapper } from "../nats-wrapper";
 import { newTicketValidation } from "./../dtos/new-dto";
 
 const router = Router();
@@ -17,6 +20,13 @@ router.post(
       price,
       userId: req.currentUser?.id || "",
     }).save();
+
+    new TicketCreatedPublisher(natsWrapper.client).publish({
+      id: ticket.id,
+      price: ticket.price,
+      title: ticket.title,
+      userId: ticket.userId,
+    });
 
     res.status(201).send(ticket);
   }
