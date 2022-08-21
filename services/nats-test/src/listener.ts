@@ -1,7 +1,7 @@
 import nats from "node-nats-streaming";
 import { TicketCreatedListener } from "./events/ticket-created-listener";
 
-const clientID = process.env.CLIENT_ID || "123";
+const clientID = process.env.CLIENT_ID || (Math.random() * 10000).toFixed();
 
 console.clear();
 const stan = nats.connect("ticketing", clientID, {
