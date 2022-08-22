@@ -44,3 +44,15 @@ build:
             dest: .
           - src: "services/**/*.tsx"
             dest: .
+    - image: lschulzes/orders
+      context: .
+      docker:
+        dockerfile: services/orders/Dockerfile.dev
+      sync:
+        manual:
+          - src: "packages/**/*.ts"
+            dest: .
+          - src: "services/**/*.ts"
+            dest: .
+          - src: "services/**/*.tsx"
+            dest: .
