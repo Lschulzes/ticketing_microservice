@@ -1,5 +1,7 @@
+import { OrderStatus } from "common";
 import mongoose from "mongoose";
 import { TicketAttrs, TicketDoc, TicketModel } from "../interfaces/ticket";
+import Order from "./Order";
 
 const TicketSchema = new mongoose.Schema(
   {
@@ -25,6 +27,15 @@ const TicketSchema = new mongoose.Schema(
 );
 
 TicketSchema.statics.build = (attrs: TicketAttrs) => new Ticket(attrs);
+
+TicketSchema.methods.isReserved = async function () {
+  const existingOrder = await Order.findOne({
+    ticket: this,
+    status: { $ne: OrderStatus.Cancelled },
+  });
+
+  return !!existingOrder;
+};
 
 export const Ticket = mongoose.model<TicketDoc, TicketModel>(
   "Ticket",
