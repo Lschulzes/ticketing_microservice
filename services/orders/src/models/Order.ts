@@ -1,3 +1,4 @@
+import { OrderStatus } from "common";
 import mongoose from "mongoose";
 import { OrderAttrs, OrderDoc, OrderModel } from "../interfaces/order";
 
@@ -10,6 +11,8 @@ const OrderSchema = new mongoose.Schema(
     status: {
       type: String,
       required: true,
+      enum: Object.values(OrderStatus),
+      default: OrderStatus.Created,
     },
     expiresAt: {
       type: mongoose.Schema.Types.Date,
