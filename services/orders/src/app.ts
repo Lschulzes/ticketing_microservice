@@ -4,9 +4,9 @@ import cookieSession from "cookie-session";
 import express from "express";
 import "express-async-errors";
 import { API_ENDPOINT, SHOW_ENDPOINT } from "./resources";
-import { CreateTicketRouter } from "./routes/new";
-import { ShowTicketRouter } from "./routes/show";
-import { UpdateTicketRouter } from "./routes/update";
+import { DeleteOrderRouter } from "./routes/delete";
+import { CreateOrderRouter } from "./routes/new";
+import { ShowOrderRouter } from "./routes/show";
 
 const app = express();
 
@@ -20,9 +20,9 @@ app.use(
 );
 app.use(currentUser);
 
-app.use(API_ENDPOINT, CreateTicketRouter);
-app.use(SHOW_ENDPOINT, ShowTicketRouter);
-app.use(API_ENDPOINT, UpdateTicketRouter);
+app.use(API_ENDPOINT, CreateOrderRouter);
+app.use(SHOW_ENDPOINT, ShowOrderRouter);
+app.use(API_ENDPOINT, DeleteOrderRouter);
 
 app.all("*", async (req) => {
   throw new AppError(`Can't find ${req.originalUrl} on this server`, 404);
