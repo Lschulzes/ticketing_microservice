@@ -2,12 +2,12 @@ import mongoose from "mongoose";
 
 export interface TicketAttrs {
   title: string;
-  price: Date;
+  price: number;
 }
 
 export interface TicketDoc extends mongoose.Document {
   title: string;
-  price: Date;
+  price: number;
   isReserved(): Promise<boolean>;
 }
 
