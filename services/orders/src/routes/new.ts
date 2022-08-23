@@ -1,6 +1,8 @@
 import { AppError, authGuard, OrderStatus } from "common";
 import { Request, Response, Router } from "express";
 import { createOrderValidation } from "../dtos/create-order";
+import { OrderCreatedPublisher } from "../events/publishers/order-created-publisher";
+import { natsWrapper } from "../nats-wrapper";
 import { Order } from "./../models/Order";
 import { Ticket } from "./../models/Ticket";
 
@@ -30,6 +32,17 @@ router.post(
       status: OrderStatus.Created,
       ticket,
     }).save();
+
+    new OrderCreatedPublisher(natsWrapper.client).publish({
+      id: order.id,
+      status: order.status,
+      userId: order.userId,
+      expiresAt: order.expiresAt.toISOString(),
+      ticket: {
+        id: order.ticket.id,
+        price: order.ticket.price,
+      },
+    });
 
     res.status(201).send(order);
   }
