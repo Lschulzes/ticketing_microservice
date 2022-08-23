@@ -63,5 +63,3 @@ it("fetches the order", async () => {
 
   expect(fetchedOrder.ticket.id).toEqual(ticket.id);
 });
-
-it.todo("emits an event");

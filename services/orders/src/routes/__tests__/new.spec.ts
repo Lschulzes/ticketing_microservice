@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 import request from "supertest";
 import app from "../../app";
 import Ticket from "../../models/Ticket";
+import { natsWrapper } from "../../nats-wrapper";
 import { API_ENDPOINT } from "../../resources";
 
 const { price, title } = { price: 10, title: "This is a valid title!" };
@@ -43,4 +44,14 @@ it("should return an error if the ticket is already reserved", async () => {
   expect(failingOrder.statusCode).toEqual(400);
 });
 
-it.todo("emits an event");
+it("emits an order created event", async () => {
+  const ticket = await Ticket.build({ price, title }).save();
+
+  await request(app)
+    .post(API_ENDPOINT)
+    .set("Cookie", global.signin())
+    .send({ ticketId: ticket.id })
+    .expect(201);
+
+  expect(natsWrapper.client.publish).toHaveBeenCalled();
+});
