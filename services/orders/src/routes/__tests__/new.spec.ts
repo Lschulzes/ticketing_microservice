@@ -42,3 +42,5 @@ it("should return an error if the ticket is already reserved", async () => {
   expect(sucessfulOrder.statusCode).toEqual(201);
   expect(failingOrder.statusCode).toEqual(400);
 });
+
+it.todo("emits an event");

@@ -28,7 +28,7 @@ router.post(
       expiresAt,
       userId: req.currentUser!.id,
       status: OrderStatus.Created,
-      ticketId,
+      ticket,
     }).save();
 
     res.status(201).send(order);
