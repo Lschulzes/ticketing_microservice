@@ -5,12 +5,12 @@ import { API_ENDPOINT } from "../../resources";
 
 const { price, title } = { price: 10, title: "This is a valid title!" };
 
-const buildTicket = async () => await Ticket.build({ price, title }).save();
+const createTicket = async () => await Ticket.build({ price, title }).save();
 
 it("fetches orders for a particular user", async () => {
-  const ticket1 = await buildTicket();
-  const ticket2 = await buildTicket();
-  const ticket3 = await buildTicket();
+  const ticket1 = await createTicket();
+  const ticket2 = await createTicket();
+  const ticket3 = await createTicket();
 
   const user1 = global.signin();
   const user2 = global.signin("anotherId");
@@ -34,7 +34,7 @@ it("fetches orders for a particular user", async () => {
     .expect(201);
 
   const response = await request(app)
-    .get(`${API_ENDPOINT}`)
+    .get(API_ENDPOINT)
     .set("Cookie", user2)
     .expect(200);
 
@@ -47,21 +47,21 @@ it("fetches orders for a particular user", async () => {
   expect(response.body[1].ticket.id).toEqual(ticket3.id);
 });
 
-// it("should return an error if the ticket is already reserved", async () => {
-//   const ticket = await buildTicket();
+it("fetches the order", async () => {
+  const ticket = await createTicket();
 
-//   const sucessfulOrder = await request(app)
-//     .post(API_ENDPOINT)
-//     .set("Cookie", global.signin())
-//     .send({ ticketId: ticket.id });
+  const { body: order } = await request(app)
+    .post(API_ENDPOINT)
+    .set("Cookie", global.signin())
+    .send({ ticketId: ticket.id })
+    .expect(201);
 
-//   const failingOrder = await request(app)
-//     .post(API_ENDPOINT)
-//     .set("Cookie", global.signin())
-//     .send({ ticketId: ticket.id });
+  const { body: fetchedOrder } = await request(app)
+    .get(`${API_ENDPOINT}/${order.id}`)
+    .set("Cookie", global.signin())
+    .expect(200);
 
-//   expect(sucessfulOrder.statusCode).toEqual(201);
-//   expect(failingOrder.statusCode).toEqual(400);
-// });
+  expect(fetchedOrder.ticket.id).toEqual(ticket.id);
+});
 
 it.todo("emits an event");
