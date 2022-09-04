@@ -1,5 +1,5 @@
-import { Publisher, Subjects, TicketCreatedEvent } from "common";
+import { Publisher, Subjects, TicketUpdatedEvent } from "common";
 
-export class TicketUpdatedPublisher extends Publisher<TicketCreatedEvent> {
+export class TicketUpdatedPublisher extends Publisher<TicketUpdatedEvent> {
   readonly subject = Subjects.TicketUpdated;
 }

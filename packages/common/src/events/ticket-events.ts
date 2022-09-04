@@ -1,10 +1,11 @@
 import { Subjects } from "./subjects";
 
 export interface TicketCreatedEvent {
-  subject: Subjects.TicketCreated | Subjects.TicketUpdated;
+  subject: Subjects.TicketCreated;
   data: {
     id: string;
     title: string;
+    version: number;
     price: number;
     userId: string;
   };
@@ -15,6 +16,7 @@ export interface TicketUpdatedEvent {
   data: {
     id: string;
     title: string;
+    version: number;
     price: number;
     userId: string;
   };
