@@ -1,6 +1,8 @@
 import mongoose from "mongoose";
 import { Stan } from "node-nats-streaming";
 import app from "./app";
+import { TicketCreatedListener } from "./events/listeners/ticket-created-listener";
+import { TicketUpdatedListener } from "./events/listeners/ticket-updated-listener";
 import { natsWrapper } from "./nats-wrapper";
 
 let stan: Stan;
@@ -25,6 +27,9 @@ const start = async () => {
       console.log("NATS connection closed!");
       process.exit();
     });
+
+    new TicketCreatedListener(natsWrapper.client).listen();
+    new TicketUpdatedListener(natsWrapper.client).listen();
 
     process.on("SIGINT", () => natsWrapper.client.close());
     process.on("SIGTERM", () => natsWrapper.client.close());
