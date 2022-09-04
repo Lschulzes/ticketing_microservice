@@ -1,11 +1,20 @@
+import mongoose from "mongoose";
 import request from "supertest";
 import app from "../../app";
 import Ticket from "../../models/Ticket";
 import { API_ENDPOINT } from "../../resources";
 
-const { price, title } = { price: 10, title: "This is a valid title!" };
+const { price, title } = {
+  price: 10,
+  title: "This is a valid title!",
+};
 
-const createTicket = async () => await Ticket.build({ price, title }).save();
+const createTicket = async () =>
+  await Ticket.build({
+    price,
+    title,
+    id: new mongoose.Types.ObjectId().toHexString(),
+  }).save();
 
 it("fetches orders for a particular user", async () => {
   const ticket1 = await createTicket();

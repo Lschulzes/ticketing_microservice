@@ -1,4 +1,5 @@
 import { OrderStatus } from "common";
+import mongoose from "mongoose";
 import request from "supertest";
 import app from "../../app";
 import Order from "../../models/Order";
@@ -6,9 +7,17 @@ import Ticket from "../../models/Ticket";
 import { natsWrapper } from "../../nats-wrapper";
 import { API_ENDPOINT } from "../../resources";
 
-const { price, title } = { price: 10, title: "This is a valid title!" };
+const { price, title } = {
+  price: 10,
+  title: "This is a valid title!",
+};
 
-const createTicket = async () => await Ticket.build({ price, title }).save();
+const createTicket = async () =>
+  await Ticket.build({
+    price,
+    title,
+    id: new mongoose.Types.ObjectId().toHexString(),
+  }).save();
 
 it("Changes an order to cancelled", async () => {
   const ticket = await createTicket();
