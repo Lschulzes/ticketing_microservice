@@ -33,6 +33,17 @@ TicketSchema.plugin(updateIfCurrentPlugin);
 TicketSchema.statics.build = ({ id, price, title }: TicketAttrs) =>
   new Ticket({ id, _id: id, title, price });
 
+type Event = {
+  id: string;
+  version: number;
+};
+
+TicketSchema.statics.findByEvent = ({ id, version }: Event) =>
+  Ticket.findOne({
+    _id: id,
+    version: version - 1,
+  });
+
 TicketSchema.methods.isReserved = async function () {
   const existingOrder = await Order.findOne({
     ticket: this.id,
