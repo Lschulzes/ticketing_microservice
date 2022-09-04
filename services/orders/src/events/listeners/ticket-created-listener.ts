@@ -6,6 +6,7 @@ import { QUEUE_GROUP_NAME } from "./queue-group-name";
 export class TicketCreatedListener extends Listener<TicketCreatedEvent> {
   queueGroupName: string = QUEUE_GROUP_NAME;
   readonly subject = Subjects.TicketCreated;
+
   async onMessage(data: TicketCreatedEvent["data"], msg: Message) {
     const { title, price, id } = data;
     const ticket = Ticket.build({ title, price, id });

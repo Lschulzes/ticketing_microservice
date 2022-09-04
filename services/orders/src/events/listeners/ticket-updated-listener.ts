@@ -8,7 +8,7 @@ export class TicketUpdatedListener extends Listener<TicketUpdatedEvent> {
   readonly subject = Subjects.TicketUpdated;
 
   async onMessage(data: TicketUpdatedEvent["data"], msg: Message) {
-    const { id, price, version } = data;
+    const { id, price, version, title } = data;
 
     const ticket = await Ticket.findByEvent({
       id: id,
@@ -17,7 +17,7 @@ export class TicketUpdatedListener extends Listener<TicketUpdatedEvent> {
 
     if (!ticket) throw new AppError("Ticket not found!", 404);
 
-    ticket.set({ price });
+    ticket.set({ price, title });
     await ticket.save();
 
     msg.ack();
