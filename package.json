@@ -23,6 +23,7 @@
     "test": "turbo run test"
   },
   "devDependencies": {
+    "mongoose-update-if-current": "^1.4.0",
     "prettier": "^2.7.1",
     "turbo": "^1.4.3"
   },

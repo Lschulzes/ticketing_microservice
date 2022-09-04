@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
+import { updateIfCurrentPlugin } from "mongoose-update-if-current";
 import { TicketAttrs, TicketDoc, TicketModel } from "../interfaces/ticket";
-
 const TicketSchema = new mongoose.Schema(
   {
     title: {
@@ -26,6 +26,9 @@ const TicketSchema = new mongoose.Schema(
     },
   }
 );
+
+TicketSchema.set("versionKey", "version");
+TicketSchema.plugin(updateIfCurrentPlugin);
 
 TicketSchema.statics.build = (attrs: TicketAttrs) => new Ticket(attrs);
 
