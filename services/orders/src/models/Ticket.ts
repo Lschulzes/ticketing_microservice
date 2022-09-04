@@ -26,7 +26,8 @@ const TicketSchema = new mongoose.Schema(
   }
 );
 
-TicketSchema.statics.build = (attrs: TicketAttrs) => new Ticket(attrs);
+TicketSchema.statics.build = ({ id, price, title }: TicketAttrs) =>
+  new Ticket({ id, title, price });
 
 TicketSchema.methods.isReserved = async function () {
   const existingOrder = await Order.findOne({
