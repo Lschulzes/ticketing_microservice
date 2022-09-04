@@ -1,5 +1,6 @@
 import { OrderStatus } from "common";
 import mongoose from "mongoose";
+import { updateIfCurrentPlugin } from "mongoose-update-if-current";
 import { TicketAttrs, TicketDoc, TicketModel } from "../interfaces/ticket";
 import Order from "./Order";
 
@@ -19,13 +20,15 @@ const TicketSchema = new mongoose.Schema(
     toJSON: {
       transform(_doc, ret) {
         ret.id = ret._id;
-        ret.version = ret.__v;
         delete ret._id;
         delete ret.__v;
       },
     },
   }
 );
+
+TicketSchema.set("versionKey", "version");
+TicketSchema.plugin(updateIfCurrentPlugin);
 
 TicketSchema.statics.build = ({ id, price, title }: TicketAttrs) =>
   new Ticket({ id, _id: id, title, price });
