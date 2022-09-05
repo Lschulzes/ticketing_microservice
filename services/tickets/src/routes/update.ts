@@ -18,6 +18,11 @@ router.put(
     const ticket = await Ticket.findById(id);
 
     if (!ticket) throw new AppError("Ticket not found", 404);
+    if (ticket.orderId)
+      throw new AppError(
+        `Ticket has been reserved by order ${ticket.orderId}`,
+        409
+      );
 
     const sameUser = ticket.userId === req.currentUser?.id;
     if (!sameUser)

@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 import request from "supertest";
 import app from "../app";
+import Ticket from "../models/Ticket";
 import { natsWrapper } from "../nats-wrapper";
 
 const id = new mongoose.Types.ObjectId().toHexString();
@@ -113,4 +114,27 @@ it("published an event", async () => {
     .expect(200);
 
   expect(natsWrapper.client.publish).toHaveBeenCalledTimes(2);
+});
+
+it("thrown a 409 if the ticket is already reserved", async () => {
+  const title = "This is a valid title";
+  const { body: ticketData } = await request(app)
+    .post("/api/tickets")
+    .set("Cookie", signin())
+    .send({ title, price: 20 })
+    .expect(201);
+
+  expect(ticketData.price).toEqual(20);
+
+  const ticket = await Ticket.findById(ticketData.id);
+  ticket!.set({ orderId: new mongoose.Types.ObjectId().toHexString() });
+  await ticket!.save();
+
+  await request(app)
+    .put(`/api/tickets/${ticket!.id}`)
+    .set("Cookie", signin())
+    .send({ title, price: 10 })
+    .expect(409);
+
+  expect(natsWrapper.client.publish).toHaveBeenCalledTimes(1);
 });

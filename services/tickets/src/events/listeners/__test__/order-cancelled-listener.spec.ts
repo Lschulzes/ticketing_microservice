@@ -42,7 +42,7 @@ it("removes the order id of the ticket", async () => {
 
   const updatedTicket = await Ticket.findById(ticket.id);
 
-  expect(updatedTicket!.orderId).toEqual(undefined);
+  expect(updatedTicket!.orderId).not.toBeDefined();
 });
 
 it("acknowledges the message", async () => {
@@ -64,5 +64,5 @@ it("published a ticket updated event", async () => {
   );
 
   expect(eventData.ticket.id).toEqual(ticketUpdatedData.id);
-  expect(ticketUpdatedData.orderId).toEqual(undefined);
+  expect(ticketUpdatedData.orderId).not.toBeDefined();
 });
