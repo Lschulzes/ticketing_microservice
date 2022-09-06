@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 import { Stan } from "node-nats-streaming";
 import app from "./app";
+import { ExpirationCompletedListener } from "./events/listeners/expiration-completed-listener";
 import { TicketCreatedListener } from "./events/listeners/ticket-created-listener";
 import { TicketUpdatedListener } from "./events/listeners/ticket-updated-listener";
 import { natsWrapper } from "./nats-wrapper";
@@ -30,6 +31,7 @@ const start = async () => {
 
     new TicketCreatedListener(natsWrapper.client).listen();
     new TicketUpdatedListener(natsWrapper.client).listen();
+    new ExpirationCompletedListener(natsWrapper.client).listen();
 
     process.on("SIGINT", () => natsWrapper.client.close());
     process.on("SIGTERM", () => natsWrapper.client.close());
