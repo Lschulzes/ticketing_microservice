@@ -1,0 +1,11 @@
+{
+  "conventionalCommits.scopes": [
+    "services/auth",
+    "services/client",
+    "services/orders",
+    "services/tickets",
+    "services/expiration",
+    "services/payments",
+    "packages/common"
+  ]
+}
