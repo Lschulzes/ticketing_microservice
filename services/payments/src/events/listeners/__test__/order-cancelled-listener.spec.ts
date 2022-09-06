@@ -12,6 +12,7 @@ const { id, price, status, userId, version } = {
   status: OrderStatus.Created,
   price: 10,
 };
+
 const setup = async () => {
   const listener = new OrderCancelledListener(natsWrapper.client);
 
