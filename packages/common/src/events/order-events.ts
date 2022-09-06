@@ -22,6 +22,7 @@ export interface OrderCancelledEvent {
     id: string;
     userId: string;
     version: number;
+    status: OrderStatus.Cancelled;
     ticket: {
       id: string;
       price: number;
