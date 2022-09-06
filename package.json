@@ -18,6 +18,7 @@
     "dev:tickets": "yarn dev --filter=tickets",
     "dev:client": "yarn dev --filter=client",
     "dev:orders": "yarn dev --filter=orders",
+    "dev:expiration": "yarn dev --filter=expiration",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "lint": "turbo run lint",
     "test": "turbo run test"

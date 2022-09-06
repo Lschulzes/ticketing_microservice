@@ -1,9 +1,9 @@
 {
   "compilerOptions": {
-    "baseUrl": ".",
+    "baseUrl": "."
 
-    "paths": {
-      "@tickets/common": ["packages/common/dist"]
-    }
+    // "paths": {
+    //   "@tickets/common": ["packages/common/dist"]
+    // }
   }
 }

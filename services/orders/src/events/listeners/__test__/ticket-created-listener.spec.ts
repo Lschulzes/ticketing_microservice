@@ -1,4 +1,4 @@
-import { TicketCreatedEvent } from "@tickets/common";
+import { TicketCreatedEvent } from "common";
 import mongoose from "mongoose";
 import { Message } from "node-nats-streaming";
 import Ticket from "../../../models/Ticket";
