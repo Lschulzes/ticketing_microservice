@@ -2,6 +2,7 @@ import { AppError, authGuard, OrderStatus } from "common";
 import { Request, Response, Router } from "express";
 import { newChargeValidation } from "../dtos/new-dto";
 import Order from "../models/Order";
+import Payment from "../models/Payment";
 import { stripe } from "../stripe";
 
 const router = Router();
@@ -20,11 +21,13 @@ router.post(
     if (order.status === OrderStatus.Cancelled)
       throw new AppError("Cannot pay for a cancelled order!", 400);
 
-    await stripe.charges.create({
+    const charge = await stripe.charges.create({
       amount: order.price * 100,
       currency: "usd",
       source: token,
     });
+
+    await Payment.build({ orderId, stripeId: charge.id }).save();
 
     res.status(201).json({ success: true });
   }
