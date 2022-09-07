@@ -29,6 +29,7 @@ router.delete(
       id: order.id,
       userId: order.userId,
       version: order.version,
+      status: OrderStatus.Cancelled,
       ticket: {
         id: order.ticket.id,
         price: order.ticket.price,

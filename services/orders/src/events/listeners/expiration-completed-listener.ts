@@ -29,6 +29,7 @@ export class ExpirationCompletedListener extends Listener<ExpirationCompletedEve
       },
       userId: order.userId,
       version: order.version,
+      status: OrderStatus.Cancelled,
     });
 
     msg.ack();
