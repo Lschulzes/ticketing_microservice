@@ -36,7 +36,6 @@ const createOrder = async () =>
 //   expect(stripeCharge).toBeDefined();
 //   expect(stripeCharge!.amount).toEqual(order.price * 100);
 //   expect(stripeCharge!.currency).toEqual("usd");
-//   expect(response.body.success).toEqual(true);
 
 //   const payment = await Payment.findOne({orderId:Order.id, stripeId: stripeCharge!.id})
 //   expect(payment).not.toBeNull()

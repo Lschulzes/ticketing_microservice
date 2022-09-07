@@ -1,8 +1,10 @@
 import { AppError, authGuard, OrderStatus } from "common";
 import { Request, Response, Router } from "express";
 import { newChargeValidation } from "../dtos/new-dto";
+import { PaymentCreatedPublisher } from "../events/publishers/payment-created-publisher";
 import Order from "../models/Order";
 import Payment from "../models/Payment";
+import { natsWrapper } from "../nats-wrapper";
 import { stripe } from "../stripe";
 
 const router = Router();
@@ -27,9 +29,18 @@ router.post(
       source: token,
     });
 
-    await Payment.build({ orderId, stripeId: charge.id }).save();
+    const payment = await Payment.build({
+      orderId,
+      stripeId: charge.id,
+    }).save();
 
-    res.status(201).json({ success: true });
+    await new PaymentCreatedPublisher(natsWrapper.client).publish({
+      id: payment.id,
+      orderId: payment.orderId,
+      stripeId: payment.stripeId,
+    });
+
+    res.status(201).json({ id: payment.id });
   }
 );
 
