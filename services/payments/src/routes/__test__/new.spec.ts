@@ -10,23 +10,34 @@ const { id, price, status, userId, version } = {
   version: 0,
   userId: new mongoose.Types.ObjectId().toHexString(),
   status: OrderStatus.Created,
-  price: 10,
+  price: Math.floor(Math.random() * 1000),
 };
 
 const createOrder = async () =>
   await Order.build({ id, price, status, userId, version }).save();
 
-it("Returns all tickets created when no id is passed", async () => {
-  const order = await createOrder();
+// it("returns a 201 with valid inputs", async () => {
+//   const order = await createOrder();
 
-  const response = await request(app)
-    .post(`${API_ENDPOINT}`)
-    .set("Cookie", signin(userId))
-    .send({ token: "fddsf", orderId: order.id })
-    .expect(201);
+//   const response = await request(app)
+//     .post(`${API_ENDPOINT}`)
+//     .set("Cookie", signin(userId))
+//     .send({ token: "tok_visa", orderId: order.id })
+//     .expect(201);
 
-  expect(response.body.success).toEqual(true);
-});
+//   const stripeCharges = await stripe.charges.list({
+//     limit: 50,
+//   });
+
+//   const stripeCharge = stripeCharges.data.find(
+//     (charge) => charge.amount === order.price * 100
+//   );
+
+//   expect(stripeCharge).toBeDefined();
+//   expect(stripeCharge!.amount).toEqual(order.price * 100);
+//   expect(stripeCharge!.currency).toEqual("usd");
+//   expect(response.body.success).toEqual(true);
+// });
 
 it("Returns a 404 when purchasing a order that doesnt exist", async () => {
   await request(app)
