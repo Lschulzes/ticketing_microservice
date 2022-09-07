@@ -17,7 +17,7 @@ export class ExpirationCompletedListener extends Listener<ExpirationCompletedEve
   async onMessage({ orderId }: { orderId: string }, msg: Message) {
     const order = await Order.findById(orderId).populate("ticket");
     if (!order) throw new AppError("Order not found!", 404);
-    if (order.status === OrderStatus.Complete) return msg.ack();
+    if (order.status === OrderStatus.Completed) return msg.ack();
 
     await order.set({ status: OrderStatus.Cancelled }).save();
 

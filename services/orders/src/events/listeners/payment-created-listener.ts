@@ -1,6 +1,11 @@
-import { AppError, OrderStatus } from "common";
+import {
+  AppError,
+  Listener,
+  OrderStatus,
+  PaymentCreatedEvent,
+  Subjects,
+} from "common";
 import { Message } from "node-nats-streaming";
-import { Listener, PaymentCreatedEvent, Subjects } from "packages/common/src";
 import Order from "../../models/Order";
 import { OrderCompletedPublisher } from "../publishers/order-completed-publisher";
 import { QUEUE_GROUP_NAME } from "./queue-group-name";

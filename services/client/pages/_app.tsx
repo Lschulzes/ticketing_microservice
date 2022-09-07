@@ -13,7 +13,9 @@ function MyApp({ Component, pageProps, user }: AppProps & PageProps) {
   return (
     <>
       <Header user={user} />
-      <Component {...pageProps} user={user} />
+      <div className="container">
+        <Component {...pageProps} user={user} />
+      </div>
     </>
   );
 }
