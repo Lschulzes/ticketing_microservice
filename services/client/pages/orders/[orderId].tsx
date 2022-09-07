@@ -1,4 +1,3 @@
-import { OrderStatus } from 'common';
 import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
@@ -21,11 +20,18 @@ export type Order = {
   };
 };
 
+enum OrderStatus {
+  Created = 'Created',
+  Cancelled = 'Cancelled',
+  AwaitingPayment = 'AwaitingPayment',
+  Completed = 'Completed',
+}
+
 type PageProps = { order: Order };
 
 const OrderPage = ({ order, user }: PageProps & { user: BaseUser }) => {
   const { executeRequest, errors } = useRequest();
-  const { reload } = useRouter();
+  const { push } = useRouter();
 
   const [secondsLeft, setSecondsLeft] = useState(getSecondsToDate(order.expiresAt));
 
@@ -36,9 +42,10 @@ const OrderPage = ({ order, user }: PageProps & { user: BaseUser }) => {
       body: { token: token.id, orderId: order.id },
     });
     if (!error) {
-      reload();
+      push('/orders');
     }
   };
+
   useEffect(() => {
     if (secondsLeft < 0) return;
     const timer = setInterval(() => setSecondsLeft((left) => left - 1), 1000);
@@ -50,7 +57,7 @@ const OrderPage = ({ order, user }: PageProps & { user: BaseUser }) => {
     <div>
       {order.status === OrderStatus.Completed ? (
         <>
-          <h1>Tickets Successfully Bought!</h1>
+          <h1>{`Ticket "${order.ticket.title}" Successfully Bought!`}</h1>
         </>
       ) : (
         <>

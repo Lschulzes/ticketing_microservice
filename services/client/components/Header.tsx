@@ -8,6 +8,8 @@ const Header = ({ user }: Props) => {
   const links = [
     { label: 'Sign Up', href: '/auth/signup', show: !user },
     { label: 'Sign In', href: '/auth/signin', show: !user },
+    { label: 'Sell Tickets', href: '/tickets/new', show: user },
+    { label: 'My Orders', href: '/orders', show: user },
     { label: 'Sign Out', href: '/auth/signout', show: user },
   ]
     .filter((linkConfig) => linkConfig.show)
