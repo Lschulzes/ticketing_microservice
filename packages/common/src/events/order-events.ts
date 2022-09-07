@@ -29,3 +29,17 @@ export interface OrderCancelledEvent {
     };
   };
 }
+
+export interface OrderCompletedEvent {
+  subject: Subjects.OrderCompleted;
+  data: {
+    id: string;
+    userId: string;
+    version: number;
+    status: OrderStatus.Completed;
+    ticket: {
+      id: string;
+      price: number;
+    };
+  };
+}
