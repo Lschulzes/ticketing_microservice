@@ -19,6 +19,7 @@
     "dev:client": "yarn dev --filter=client",
     "dev:orders": "yarn dev --filter=orders",
     "dev:expiration": "yarn dev --filter=expiration",
+    "dev:payments": "yarn dev --filter=payments",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "lint": "turbo run lint",
     "test": "turbo run test"
