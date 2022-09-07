@@ -15,6 +15,12 @@ spec:
       containers:
         - name: client
           image: lschulzes/client
+          env:
+            - name: NEXT_PUBLIC_STRIPE_PUBLIC_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: stripe-public-secret
+                  key: STRIPE_PUBLIC_KEY
 ---
 apiVersion: v1
 kind: Service

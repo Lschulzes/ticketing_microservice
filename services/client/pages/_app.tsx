@@ -5,8 +5,10 @@ import buildClient, { Request } from '../api/buildClient';
 import Header from '../components/Header';
 import '../styles/globals.css';
 
+export type BaseUser = { id: string; email: string };
+
 export type PageProps = {
-  user: { id: string; email: string } | null;
+  user: BaseUser | null;
 };
 
 function MyApp({ Component, pageProps, user }: AppProps & PageProps) {

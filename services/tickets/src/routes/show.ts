@@ -12,7 +12,9 @@ router.get("/:id?", async (req: Request, res: Response) => {
   if (id && !isValidId)
     throw new AppError(`Id of value "${id}" is not valid!`, 400);
 
-  const tickets = await Ticket.find(isValidId ? { _id: id } : {});
+  const tickets = await Ticket.find(
+    isValidId ? { _id: id } : { orderId: undefined }
+  );
 
   if (id && !tickets.length)
     throw new AppError(`No id of value "${id}" found!`, 404);

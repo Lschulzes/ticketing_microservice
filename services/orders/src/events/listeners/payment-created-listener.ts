@@ -31,5 +31,7 @@ export class PaymentCreatedListener extends Listener<PaymentCreatedEvent> {
       userId,
       version,
     });
+
+    msg.ack();
   }
 }

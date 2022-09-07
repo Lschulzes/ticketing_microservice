@@ -1,8 +1,11 @@
 import { OrderStatus } from 'common';
 import { GetServerSideProps } from 'next';
+import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
+import StripeCheckout, { Token } from 'react-stripe-checkout';
 import buildClient from 'services/client/api/buildClient';
 import useRequest from 'services/client/hooks/useRequest';
+import { BaseUser } from '../_app';
 
 export type Order = {
   id: string;
@@ -20,19 +23,22 @@ export type Order = {
 
 type PageProps = { order: Order };
 
-const OrderPage = ({ order }: PageProps) => {
+const OrderPage = ({ order, user }: PageProps & { user: BaseUser }) => {
   const { executeRequest, errors } = useRequest();
+  const { reload } = useRouter();
 
   const [secondsLeft, setSecondsLeft] = useState(getSecondsToDate(order.expiresAt));
 
-  const onPurchase = async () => {
-    // await executeRequest({
-    //   method: 'post',
-    //   url: '/api/orders',
-    //   body: { ticketId: ticket.id },
-    // });
+  const onPurchase = async (token: Token) => {
+    const { error } = await executeRequest({
+      method: 'post',
+      url: '/api/payments',
+      body: { token: token.id, orderId: order.id },
+    });
+    if (!error) {
+      reload();
+    }
   };
-
   useEffect(() => {
     if (secondsLeft < 0) return;
     const timer = setInterval(() => setSecondsLeft((left) => left - 1), 1000);
@@ -42,11 +48,21 @@ const OrderPage = ({ order }: PageProps) => {
 
   return (
     <div>
-      <h1>{secondsLeft > 0 ? secondsLeft : 'Order Expired'}</h1>
-
-      <button onClick={onPurchase} className="btn btn-primary">
-        Purchase
-      </button>
+      {order.status === OrderStatus.Completed ? (
+        <>
+          <h1>Tickets Successfully Bought!</h1>
+        </>
+      ) : (
+        <>
+          <h1>Time left to pay: {secondsLeft > 0 ? secondsLeft : 'Order Expired'}</h1>
+          <StripeCheckout
+            stripeKey={process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY || ''}
+            token={onPurchase}
+            amount={order.ticket.price * 100}
+            email={user.email}
+          />
+        </>
+      )}
 
       {errors && (
         <div className="mt-4 alert alert-danger">
