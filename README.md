@@ -1,6 +1,6 @@
 # ticketing_microservice
 
-This project showcases in a very simplistic way how microsservices communicate with eachother
+This project showcases in a very simplistic way of how microsservices communicate with eachother
 
 To run this project you'll need minikube in the linux OS and for mac or windows docker desktop will do.
 You'll need to set some envs in bash
