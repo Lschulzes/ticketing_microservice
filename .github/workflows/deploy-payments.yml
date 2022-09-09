@@ -5,7 +5,7 @@ on:
     branches:
       - master
     paths:
-      - "payments/**"
+      - "services/payments/**"
 
 jobs:
   build:

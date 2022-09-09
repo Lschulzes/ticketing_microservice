@@ -5,7 +5,7 @@ on:
     branches:
       - master
     paths:
-      - "tickets/**"
+      - "services/tickets/**"
 
 jobs:
   build:
