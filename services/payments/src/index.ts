@@ -37,7 +37,7 @@ const start = async () => {
     await mongoose.connect(process.env.MONGO_URI);
     console.log("Connected to tickets DB");
   } catch (error) {
-    console.error("Mongo Connection", error);
+    console.error(error);
   }
 
   app.listen(3000, () => {
