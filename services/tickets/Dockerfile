@@ -4,5 +4,5 @@ WORKDIR /app
 COPY package.json .
 RUN yarn 
 COPY . .
-RUN ls
-CMD ["yarn", "dev:client"]
+
+CMD ["yarn", "dev:tickets"]
