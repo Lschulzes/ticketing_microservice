@@ -15,7 +15,7 @@ const buildClient = (req: Request) => {
     });
   }
   return axios.create({
-    baseURL: '/',
+    baseURL: 'https://lschulzes.dev/',
   });
 };
 
