@@ -1,4 +1,4 @@
-import { OrderCancelledEvent } from "common";
+import { OrderCancelledEvent, OrderStatus } from "common";
 import mongoose from "mongoose";
 import { Message } from "node-nats-streaming";
 import Ticket from "../../../models/Ticket";
@@ -22,6 +22,7 @@ const setup = async () => {
     id: new mongoose.Types.ObjectId().toHexString(),
     userId: "sdsd",
     version: 1,
+    status: OrderStatus.Cancelled,
     ticket: {
       id: ticket.id,
       price: ticket.price,
