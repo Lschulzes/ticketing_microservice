@@ -11,7 +11,7 @@ build:
     - image: lschulzes/auth
       context: .
       docker:
-        dockerfile: services/auth/Dockerfile.dev
+        dockerfile: services/auth/Dockerfile
       sync:
         manual:
           - src: "packages/**/*.ts"
@@ -23,7 +23,7 @@ build:
     - image: lschulzes/client
       context: .
       docker:
-        dockerfile: services/client/Dockerfile.dev
+        dockerfile: services/client/Dockerfile
       sync:
         manual:
           - src: "packages/**/*.ts"
@@ -35,7 +35,7 @@ build:
     - image: lschulzes/tickets
       context: .
       docker:
-        dockerfile: services/tickets/Dockerfile.dev
+        dockerfile: services/tickets/Dockerfile
       sync:
         manual:
           - src: "packages/**/*.ts"
@@ -47,7 +47,7 @@ build:
     - image: lschulzes/orders
       context: .
       docker:
-        dockerfile: services/orders/Dockerfile.dev
+        dockerfile: services/orders/Dockerfile
       sync:
         manual:
           - src: "packages/**/*.ts"
@@ -59,7 +59,7 @@ build:
     - image: lschulzes/expiration
       context: .
       docker:
-        dockerfile: services/expiration/Dockerfile.dev
+        dockerfile: services/expiration/Dockerfile
       sync:
         manual:
           - src: "packages/**/*.ts"
@@ -71,7 +71,7 @@ build:
     - image: lschulzes/payments
       context: .
       docker:
-        dockerfile: services/payments/Dockerfile.dev
+        dockerfile: services/payments/Dockerfile
       sync:
         manual:
           - src: "packages/**/*.ts"
