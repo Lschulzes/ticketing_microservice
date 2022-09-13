@@ -7,7 +7,7 @@ metadata:
     kubernetes.io/ingress.class: nginx
 spec:
   rules:
-    - host: lschulzes.dev
+    - host: www.lschulzes.dev
       http:
         paths:
           - path: /api/users/?(.*)
